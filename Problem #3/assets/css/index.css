@@ -76,7 +76,7 @@ button:hover {
 .cloud,
 .footer {
   /* USER CODE Begin: Hide it */
-
+  
   /* USER CODE END: Hide it  */
 }
 
@@ -159,6 +159,10 @@ button:hover {
 
   .contact-logo {
     margin-left: 36px;
+  }
+  .contact-logo:hover {
+    border-radius: 500px;
+    box-shadow: 5px 5px 3px 3px rgba(0, 0, 0, 0.3);
   }
 
   .content {
