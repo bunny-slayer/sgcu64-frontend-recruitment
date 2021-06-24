@@ -13,17 +13,18 @@ def selectplace():
         print(str(item) +". " + place)
         item = item+1
     placeinput = input("Select the place: ")
-    return currentplaces[int(placeinput)-1]
-    #if int(placeinput) <= len(currentplaces) and int(placeinput) > 0:
-    #else:
-        #print("Invalid place selection. Try again")
+    if int(placeinput) <= len(currentplaces) and int(placeinput) > 0:
+        return currentplaces[int(placeinput)-1]
+    else:
+        print("Invalid place selection. Try again")
+    menu()
 
 
 def checkin():
     print("----------------------------------\n""Check in")
     phoneinput = input("Please enter phone number: ")
     if phoneinput in phonenum.keys():
-        remove(phoneinput)
+        removeuser(phoneinput)
     checkplace = selectplace()
     print("You selected " + checkplace)
     placelist[checkplace].append(phoneinput)
@@ -31,16 +32,17 @@ def checkin():
     print("Checking in "+ phoneinput+ " into " + checkplace)
     menu()
 
-def remove(phoneinput):
+def removeuser(phoneinput):
     currentplaces = phonenum[phoneinput]
     placelist[currentplaces].remove(phoneinput)
     del phonenum[phoneinput]
 
 def checkout():
-    print('inprogress')
+    print('----------------------------------\n""Check out')
     phoneinput = input("Please enter phone number: ")
     if phoneinput in phonenum.keys():
-        remove(phoneinput)
+        removeuser(phoneinput)
+        print("Phone number "+ phoneinput +" has checked out successfully")
     else:
         print("The number you are trying to remove hasn't been checked in")
     menu()
@@ -64,7 +66,26 @@ def addplace():
     menu()
 
 def removeplace():
-    print('inprogress')
+    print("----------------------------------\n""Remove Place")
+    placeinput = selectplace()
+    if placeinput in placelist.keys():
+        if len(placelist[placeinput]) != 0:
+            confirm = input("There are users still checked in to this place. Do you still want to delete the place? (Y/N)")
+            if confirm in ["y",'Y']:
+                del placelist[placeinput]
+                for i,j in phonenum.items():
+                    if j == placeinput:
+                        phonenum.pop(i)
+                        break
+                print("Removed " +placeinput +" from place list")
+            else:
+                print("Cancel Remove Place")
+        else:
+            del placelist[placeinput]
+            print("Removed " +placeinput +" from place list")
+    else:
+        print("There's no matching place to remove")
+    menu()
 
 def menu():
     print("----------------------------------\n""Menu")
