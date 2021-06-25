@@ -76,7 +76,6 @@ button:hover {
 .cloud,
 .footer {
   /* USER CODE Begin: Hide it */
-  
   /* USER CODE END: Hide it  */
 }
 
@@ -112,31 +111,36 @@ button:hover {
 
   .kite {
     /* USER CODE Begin: Control kite */
-
+    size:0px;
+    opacity: 0%;
     /* USER CODE END: Control kite */
   }
 
   .cloud {
     /* USER CODE Begin: Style cloud */
-
+    size:0px;
+    opacity: 0%;
     /* USER CODE END: Style kite */
   }
 
   .cloud.cloud1 {
     /* USER CODE Begin: Control cloud1 */
-
+    size:0px;
+    opacity: 0%;
     /* USER CODE END: Control cloud1 */
   }
 
   .cloud.cloud2 {
     /* USER CODE Begin: Control cloud2 */
-
+    size:0px;
+    opacity: 0%;
     /* USER CODE END: Control cloud2 */
   }
 
   .cloud.cloud3 {
     /* USER CODE Begin: Control cloud3*/
-
+    size:0px;
+    opacity: 0%;
     /* USER CODE END: Control cloud3 */
   }
 
@@ -160,9 +164,10 @@ button:hover {
   .contact-logo {
     margin-left: 36px;
   }
+
   .contact-logo:hover {
     border-radius: 500px;
-    box-shadow: 5px 5px 3px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.3);
   }
 
   .content {
