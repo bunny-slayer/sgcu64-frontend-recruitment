@@ -49,7 +49,7 @@ body {
 
 input {
   /* USER CODE Begin: Style the input field */
-
+  padding-top: 20px;
   /* USER CODE END: Style the input field */
 }
 
@@ -85,8 +85,13 @@ button:hover {
   justify-content: center;
 }
 
+.contact-logo:hover {
+  border-radius: 500px;
+  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
 /* USER CODE Begin: Manage screen width */
-@media screen and (min-width: 0px) {
+@media screen and (min-width: 450px) {
   /* USER CODE END: Manage screen width */
   body {
     background: url("../img/bg-desktop.svg");
@@ -111,42 +116,37 @@ button:hover {
 
   .kite {
     /* USER CODE Begin: Control kite */
-    size:0px;
-    opacity: 0%;
+
     /* USER CODE END: Control kite */
   }
 
   .cloud {
     /* USER CODE Begin: Style cloud */
-    size:0px;
-    opacity: 0%;
+
     /* USER CODE END: Style kite */
   }
 
   .cloud.cloud1 {
     /* USER CODE Begin: Control cloud1 */
-    size:0px;
-    opacity: 0%;
+
     /* USER CODE END: Control cloud1 */
   }
 
   .cloud.cloud2 {
     /* USER CODE Begin: Control cloud2 */
-    size:0px;
-    opacity: 0%;
+
     /* USER CODE END: Control cloud2 */
   }
 
   .cloud.cloud3 {
     /* USER CODE Begin: Control cloud3*/
-    size:0px;
-    opacity: 0%;
+
     /* USER CODE END: Control cloud3 */
   }
 
   input {
     /* USER CODE Begin: Style the input field */
-
+    
     /* USER CODE END: Style the input field */
   }
 
@@ -163,11 +163,6 @@ button:hover {
 
   .contact-logo {
     margin-left: 36px;
-  }
-
-  .contact-logo:hover {
-    border-radius: 500px;
-    box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.3);
   }
 
   .content {
