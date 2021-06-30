@@ -1,0 +1,423 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SGCU Staff Information Access",
+    "version": "1.1",
+    "description": "This API allows HR and employees to retrieve and store basic registration data of all SGCU staff memebers in the university's database.",
+    "contact": {
+      "name": "Vorapon Kachapornkul",
+      "email": "hakao97@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://www.scgustaffregister.org",
+      "description": "SGCU Staff Register"
+    }
+  ],
+  "paths": {
+    "/api/admin": {
+      "get": {
+        "summary": "Search staff info",
+        "tags": [],
+        "operationId": "get-staff-admin",
+        "description": "Returns an array of matching staff object based on query parameters",
+        "x-internal": false,
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "$ref": "#/components/parameters/firstName"
+          },
+          {
+            "$ref": "#/components/parameters/lastName"
+          },
+          {
+            "$ref": "#/components/parameters/role"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User List Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/fullStaffInfo"
+                  }
+                },
+                "examples": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized admin key"
+          },
+          "408": {
+            "description": "Request Timeout",
+            "headers": {
+              "Connection": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Update connection status"
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer"
+                },
+                "description": "Sec to retry request"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Admin Key": []
+          }
+        ]
+      },
+      "parameters": [],
+      "post": {
+        "summary": "Create new staff",
+        "operationId": "post-staff-admin",
+        "responses": {
+          "201": {
+            "description": "Created New Staff Successfully"
+          },
+          "400": {
+            "description": "Bad Request. Invalid JSON format",
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized admin key"
+          },
+          "409": {
+            "description": "User already exist"
+          }
+        },
+        "description": "Create a new staff object. Duplicates not allowed.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/fullStaffInfo"
+              }
+            }
+          },
+          "description": "Upload a new staff"
+        },
+        "security": [
+          {
+            "Admin Key": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete staff information",
+        "operationId": "delete-staff-admin",
+        "responses": {
+          "200": {
+            "description": "User data deleted"
+          },
+          "400": {
+            "description": "Bad Request. Invalid query id"
+          },
+          "401": {
+            "description": "Unauthorized admin key"
+          }
+        },
+        "description": "Delete staff information using staff id",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "id",
+            "description": "Individual employee id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Admin Key": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update staff information",
+        "operationId": "patch-staff-admin",
+        "responses": {
+          "200": {
+            "description": "User Data Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fullStaffInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Invalid JSON format"
+          },
+          "401": {
+            "description": "Unauthorized admin key"
+          }
+        },
+        "description": "Update staff information based on staff id",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "id",
+            "description": "Individual employee id",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "salary": {
+                    "type": "number"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        },
+        "security": [
+          {
+            "Admin Key": []
+          }
+        ]
+      }
+    },
+    "/api/employee/getdata": {
+      "get": {
+        "summary": "Get individual employee data",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "User Data Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fullStaffInfo"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user key"
+          }
+        },
+        "operationId": "get-api-employee-getdata",
+        "security": [
+          {
+            "User Key": []
+          }
+        ],
+        "description": "Returns the information of the individual employee"
+      },
+      "parameters": []
+    },
+    "/api/employee/chgpass": {
+      "parameters": [],
+      "patch": {
+        "summary": "Change personal password",
+        "operationId": "patch-api-employee-chgpass",
+        "responses": {
+          "200": {
+            "description": "Password changed successful"
+          },
+          "400": {
+            "description": "Bad Request. Invalid JSON format"
+          },
+          "401": {
+            "description": "Unauthorized user key"
+          }
+        },
+        "description": "Change a user's individual password",
+        "security": [
+          {
+            "User Key": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/employee/login": {
+      "get": {
+        "summary": "Login to employee page",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Login Authorized"
+          },
+          "400": {
+            "description": "Bad Request. Invalid JSON format"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          }
+        },
+        "operationId": "get-api-employee-login",
+        "description": "Check's a user inputted id and password with the database and returns authorization",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "fullStaffInfo": {
+        "title": "Staff",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "student id number"
+          },
+          "password": {
+            "type": "string",
+            "description": "user requested password"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "user's firstname in English"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "user's lastname in English"
+          },
+          "salary": {
+            "type": "number",
+            "description": "user's salary as a number"
+          },
+          "role": {
+            "type": "string",
+            "description": "HR or Employee"
+          }
+        },
+        "required": [
+          "id",
+          "password",
+          "firstName",
+          "lastName",
+          "salary"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "User Key": {
+        "name": "userapikey",
+        "type": "apiKey",
+        "in": "header",
+        "description": "IT generated key for all verified user"
+      },
+      "Admin Key": {
+        "name": "adminapikey",
+        "type": "apiKey",
+        "in": "header"
+      }
+    },
+    "responses": {},
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Individual Staff id"
+      },
+      "firstName": {
+        "name": "firstName",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "User firstname"
+      },
+      "lastName": {
+        "name": "lastName",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "User lastname"
+      },
+      "role": {
+        "name": "role",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "HR or Employee role"
+      }
+    }
+  }
+}
