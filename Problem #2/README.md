@@ -97,4 +97,16 @@ Please input any number: 3
 
 # Applicant Section
 
-ตั้งแต่ส่วนนี้ลงไป เป็นส่วนที่ผู้สมัครสามารถแก้ไขได้ตามอัธยาศัย ซึ่งอาจจะเป็นข้อสันนิษฐานหรือไอเดียเพิ่มเติมก็ได้
+Run Instuctions - 
+extension: ms-python.python
+run: chulachana.py
+
+1. Assumption: All phone number are written in correctly without any dash (-)
+
+2. Additional Idea: The program checks for out of index user input, preventing removal on nonexistant key
+
+3. Assumption: Once an existing user tries checking in again, the applicant assume the program
+couldn't be interrupt. The program will auto checks out a user from the old place before check in function called
+
+4. Additional Idea: Database normalization by creating another dictionary with phone number as a key.
+This reduces the complexity and time required compared to looping through the placelist dict values alone
